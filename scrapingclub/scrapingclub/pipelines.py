@@ -1,13 +1,29 @@
-# Define your item pipelines here
+from pymongo import MongoClient
+
+
+# class ScrapingclubPipeline:
 #
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#     def open_spider(self, spider):
+#         self.client = MongoClient('localhost', 27017)
+#         self.db = self.client['scrapy_clothes']
+#
+#     def process_item(self, item, spider):
+#         self.db['clothes'].insert_one(item)
+#         # return item
+#
+#     def close_spider(self, spider):
+#         self.client.close()
 
 
-# useful for handling different item types with a single interface
-from itemadapter import ItemAdapter
+class ScrapingclubPipelineSplash:
 
+    def open_spider(self, spider):
+        self.client = MongoClient('localhost', 27017)
+        self.db = self.client['splash_clothes']
 
-class ScrapingclubPipeline:
     def process_item(self, item, spider):
-        return item
+        self.db['clothes'].insert_one(item)
+        # return item
+
+    def close_spider(self, spider):
+        self.client.close()
